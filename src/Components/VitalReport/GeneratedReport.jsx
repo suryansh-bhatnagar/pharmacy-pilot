@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
 
 const GeneratedReport = () => {
   const { state } = useLocation();
   console.log(state, ">>>>STATE");
-  const [first, setfirst] = useState(state.readingID);
   // useEffect(() => {
   //   const fetchData = async () => {
   //     // const id = first;

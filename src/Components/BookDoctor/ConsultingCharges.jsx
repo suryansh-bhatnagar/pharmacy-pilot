@@ -67,12 +67,11 @@
 
 // export default ConsultingCharges;
 
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form } from "formik";
 import { string, object } from "yup";
 import { makeStyles } from "@material-ui/core/styles";
-import { useNavigate } from "react-router-dom";
-import { Container, Grid, Typography, Button } from "@material-ui/core";
+import { Container, Grid, Typography } from "@material-ui/core";
 
 // import Textfield from "./Textfield";
 import Textfield from "../../UI/Textfield";
@@ -112,8 +111,6 @@ const FORM_VALIDATION = object().shape({
 });
 
 const ConsultingCharges = () => {
-  const navigate = useNavigate();
-
   const classes = useStyles();
   //   const navigate = useNavigate();
 
