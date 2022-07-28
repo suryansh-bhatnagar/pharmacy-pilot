@@ -1,0 +1,18 @@
+.homeContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.linkButton {
+  color: "white";
+  text-decoration: "none";
+  background-color: "blue";
+  padding: "8 0";
+  border-radius: 25;
+  display: "inline-block";
+  width: "50vh";
+  text-align: "center";
+}

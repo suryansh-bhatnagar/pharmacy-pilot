@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Home } from "./Components/Home";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Vitalform } from "./Components/VitalReport/Vitalform";
+import ConsultingCharges from "./Components/BookDoctor/ConsultingCharges";
+import GeneratedReport from "./Components/VitalReport/GeneratedReport";
+// import GeneratedReport from "./Components/VitalReport/GeneratedReport";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <Router>
+      <header className="App-header ">
+        <Routes>
+          {/* Route For displaying launchpads */}
+          <Route exact path="/" element={<Home />}></Route>
+          {/* Route for displaying Details of launch */}
+          <Route exact path="/vitalform" element={<Vitalform />}></Route>
+          <Route
+            exact
+            path="/consultingcharges"
+            element={<ConsultingCharges />}
+          ></Route>
+          <Route
+            exact
+            path="/generatedreport"
+            element={<GeneratedReport />}
+          ></Route>
+        </Routes>
       </header>
-    </div>
+    </Router>
   );
 }
 
