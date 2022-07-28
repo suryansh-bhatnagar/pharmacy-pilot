@@ -1,17 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import { string, object } from "yup";
 import { makeStyles } from "@material-ui/core/styles";
 import { useNavigate } from "react-router-dom";
-import {
-  Container,
-  Grid,
-  Typography,
-  Button,
-  TextField,
-  Box,
-  Modal,
-} from "@material-ui/core";
+import { Container, Grid, Typography } from "@material-ui/core";
 
 // import Textfield from "./Textfield";
 import Textfield from "../../UI/Textfield";
@@ -55,26 +47,10 @@ const FORM_VALIDATION = object().shape({
 
 export const Vitalform = () => {
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+
   const classes = useStyles();
   //   const navigate = useNavigate();
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    backgroundColor: "red",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
+
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -87,9 +63,7 @@ export const Vitalform = () => {
               validationSchema={FORM_VALIDATION}
               onSubmit={async (values, { resetForm }) => {
                 console.log(values);
-                // resetForm({ values: "" });
-                // Code to send request to the backend api
-                // https://cors-anywhere.herokuapp.com/
+                resetForm({ values: "" });
                 const url =
                   "https://staging.medbikri.com/consultation/savePatientReadings";
                 const response = await fetch(url, {
@@ -100,12 +74,18 @@ export const Vitalform = () => {
                   body: JSON.stringify(values),
                 });
                 const json = await response.json();
-                // const id = json.readingId;
-                navigate("/generatedreport", {
-                  state: { readingId: `${json.readingId}` },
+                const readingId = json.readingId;
+                console.log(readingId, ">>>>>READing Url");
+                const generateUrl = `https://staging.medbikri.com/consultation/generateReadingsReport?readingsId=${readingId}`;
+                const reportResponse = await fetch(generateUrl, {
+                  method: "GET",
                 });
-                // setOpen(true);
-                console.log(json, ">>>>from form page");
+                const reportJson = await reportResponse.json();
+                navigate("/generatedreport", {
+                  state: { pdfUrl: `${reportJson.reportURL}` },
+                });
+                // console.log(json, ">>>>post rqst  page");
+                // console.log(reportJson.reportURL, ">>>>GET rqst json page");
               }}
             >
               {(formikProps) => (
@@ -114,11 +94,11 @@ export const Vitalform = () => {
                     <Grid item xs={12}>
                       <Typography
                         className={classes.typoColor}
-                        variant="h4"
+                        variant="h5"
                         component="div"
                         gutterBottom
                       >
-                        Basic Details
+                        Vital report form
                       </Typography>
                     </Grid>
                     <Grid item xs={12}>
@@ -149,28 +129,13 @@ export const Vitalform = () => {
                       <Textfield name="readings" label="Test Reading" />
                     </Grid>
                     <Grid item xs={12}>
-                      <SubmitButton>Create Report</SubmitButton>
+                      <SubmitButton>Save Details</SubmitButton>
                     </Grid>
                   </Grid>
                 </Form>
               )}
             </Formik>
           </div>
-          <Modal
-            hideBackdrop
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="child-modal-title"
-            aria-describedby="child-modal-description"
-          >
-            <Box style={{ ...style }}>
-              <h2 id="child-modal-title">Text in a child modal</h2>
-              <p id="child-modal-description">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              </p>
-              <Button onClick={handleClose}>Close Child Modal</Button>
-            </Box>
-          </Modal>
         </Container>
       </Grid>
     </Grid>

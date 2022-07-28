@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Vitalform } from "./Components/VitalReport/Vitalform";
 import ConsultingCharges from "./Components/BookDoctor/ConsultingCharges";
 import GeneratedReport from "./Components/VitalReport/GeneratedReport";
+import PaymentPage from "./Components/BookDoctor/PaymentPage";
 // import GeneratedReport from "./Components/VitalReport/GeneratedReport";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             path="/generatedreport"
             element={<GeneratedReport />}
           ></Route>
+          <Route exact path="/paymentpage" element={<PaymentPage />}></Route>
         </Routes>
       </header>
     </Router>

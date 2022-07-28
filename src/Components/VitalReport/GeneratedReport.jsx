@@ -3,20 +3,21 @@ import { useLocation } from "react-router-dom";
 
 const GeneratedReport = () => {
   const { state } = useLocation();
-  const [first, setfirst] = useState("");
-  useEffect(() => {
-    const fetchData = async () => {
-      const url =
-        "https://staging.medbikri.com/consultation/generateReadingsReport?readingsId=62e00442641bb1f2e43409b4";
-      const response = await fetch(url, {
-        method: "GET",
-      });
-      const json = await response.json();
-      console.log(json, ">>>GET RESPONSE");
-      setfirst(json.reportURL);
-    };
-    fetchData();
-  }, [state]);
+  console.log(state, ">>>>STATE");
+  const [first, setfirst] = useState(state.readingID);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     // const id = first;
+  //     const url = `https://staging.medbikri.com/consultation/generateReadingsReport?readingsId=62e00442641bb1f2e43409b4`;
+  //     const response = await fetch(url, {
+  //       method: "GET",
+  //     });
+  //     const json = await response.json();
+  //     console.log(json, ">>>GET RESPONSE");
+  //     setfirst(json.reportURL);
+  //   };
+  //   fetchData();
+  // }, [state]);
 
   return (
     <div
@@ -30,12 +31,12 @@ const GeneratedReport = () => {
         className="webcastBtn"
         style={{
           textDecoration: "none",
-          color: "black",
+          color: "white",
           backgroundColor: "blue",
           padding: "8px",
           fontWeight: "500",
         }}
-        href={first}
+        href={state.pdfUrl}
         target="_blank"
         rel="noreferrer"
       >
